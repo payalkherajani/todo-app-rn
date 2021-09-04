@@ -1,26 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StatusBar, View, FlatList } from 'react-native';
 import AddButton from './components/AddButton'
 import ImageComponent from './components/ImageComponent';
+import TodoItem from './components/TodoItem';
+import styled from 'styled-components';
 
-function App() {
+const App = () => {
+  const [data, setData] = useState([])
+
+  const onSubmitHandler = (val) => {
+    setData([...data, { key: Math.random().toString(), value: val }])
+  }
+
+  console.log(data)
+
   return (
-    <View style={styles.container}>
-      <ImageComponent />
-      <AddButton />
-      <StatusBar style="auto" />
-    </View>
+    <ComponentContainer>
+      <View>
+        <StatusBar backgroundColor="yellow" barStyle="light-content" />
+      </View>
+
+      <View>
+        <View>
+          <AddButton onSubmit={onSubmitHandler} />
+        </View>
+        <FlatList
+          data={data.reverse()}
+          keyExtractor={(item) => item.key}
+          renderItem={({ item }) => (
+            <TodoItem item={item} />
+          )}
+        />
+
+      </View>
+      {/* <ImageComponent /> */}
+
+    </ComponentContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const ComponentContainer = styled.View`
+  background-color: orange;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 export default App
