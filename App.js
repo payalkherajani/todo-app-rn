@@ -12,7 +12,10 @@ const App = () => {
     setData([...data, { key: Math.random().toString(), value: val }])
   }
 
-  console.log(data)
+  const deleteItemFromArray = (key) => {
+    const filteredArray = data.filter((item) => item.key !== key)
+    setData(filteredArray)
+  }
 
   return (
     <ComponentContainer>
@@ -28,12 +31,13 @@ const App = () => {
           data={data.reverse()}
           keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
-            <TodoItem item={item} />
+            <TodoItem item={item} deleteItem={deleteItemFromArray} />
           )}
+          ListEmptyComponent={() => <ImageComponent />}
         />
 
       </View>
-      {/* <ImageComponent /> */}
+
 
     </ComponentContainer>
   );

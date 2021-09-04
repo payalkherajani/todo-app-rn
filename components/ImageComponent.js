@@ -4,14 +4,14 @@ import styled from "styled-components";
 
 
 const ImageComponent = () => {
-    return (
-        <ComponentContainer>
-            <ImageC
-                source={require("../assets/images/todo.png")}
-            />
-            <TextC>Want to display image here</TextC>
-        </ComponentContainer>
-    );
+  return (
+    <ComponentContainer>
+      <ImageC
+        source={require("../assets/images/todo.png")}
+      />
+      <TextC>TODO APP</TextC>
+    </ComponentContainer>
+  );
 }
 
 const ComponentContainer = styled.View`
