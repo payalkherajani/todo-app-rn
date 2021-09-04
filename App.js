@@ -27,7 +27,7 @@ const App = () => {
     setData(updateArrayOfItem)
   }
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <ComponentContainer>
