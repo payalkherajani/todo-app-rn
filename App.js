@@ -17,6 +17,18 @@ const App = () => {
     setData(filteredArray)
   }
 
+  const editItemOfArray = (key, value) => {
+    const updateArrayOfItem = data.map((item) => {
+      if (item.key === key) {
+        item.value = value
+      }
+      return item
+    })
+    setData(updateArrayOfItem)
+  }
+
+  console.log(data)
+
   return (
     <ComponentContainer>
       <View>
@@ -31,7 +43,7 @@ const App = () => {
           data={data.reverse()}
           keyExtractor={(item) => item.key}
           renderItem={({ item }) => (
-            <TodoItem item={item} deleteItem={deleteItemFromArray} />
+            <TodoItem item={item} deleteItem={deleteItemFromArray} editItem={editItemOfArray} />
           )}
           ListEmptyComponent={() => <ImageComponent />}
         />

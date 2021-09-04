@@ -1,16 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import styled from "styled-components";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
-export default function TodoItem({ item, deleteItem }) {
+export default function TodoItem({ item, deleteItem, editItem }) {
+    const [isEditing, setIsEditing] = useState(false)
+    const [newValue, setNewValue] = useState(item.value)
+
+    const onChangeTextFunction = (text) => {
+        setNewValue(text)
+    }
+
+    const updateValue = () => {
+        editItem(item.key, newValue)
+        setNewValue('')
+        setIsEditing(false)
+    }
+
     return (
         <ComponentContainer>
             <ListContainer>
                 <View>
-                    <TextItem>{item.value}</TextItem>
+                    {isEditing === false ? (<TextItem>{item.value}</TextItem>) : (
+                        <View>
+                            <Input onChangeText={onChangeTextFunction} value={newValue} />
+                            <FontAwesome name="check" size={24} color="green" onPress={updateValue} />
+                        </View>
+                    )}
                 </View>
                 <View>
+                    {isEditing === false ? (<Entypo name="edit" size={24} color="blue" onPress={() => setIsEditing(true)} />) : (null)}
                     <MaterialIcons name="delete" size={24} color="red" onPress={() => deleteItem(item.key)} />
                 </View>
             </ListContainer>
@@ -47,10 +68,12 @@ const TextItem = styled.Text`
   align-self: center;
 `;
 
-const TextTask = styled.Text`
-  color: goldenrod;
-  font-size: 15px;
+const Input = styled.TextInput`
+  font-size: 20px;
+  background-color: white;
+  width: 300px;
   margin-right: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
   border-radius: 10px;
-  width: 40px;
 `;
